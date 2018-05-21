@@ -7,19 +7,22 @@ const app = express();
 
 
 app.use(bodyParser.json());
-app.use(cors);
+app.use(cors());
+
 const db = {
 	users: [
 		{
 			 id:'123',
 			 name: 'Kendrick',
 			 email: 'kendrick@gmail.com',
+			 pwd: 'humble',
 			 entries : 0,
 			 joined : new Date()
 		},
 		{
 			id:'124',
 		 	name: 'Frank',
+		 	pwd : 'blonde',
 		 	email: 'frank@gmail.com',
 		 	entries : 0,
 		 	joined : new Date()
