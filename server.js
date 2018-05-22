@@ -44,7 +44,7 @@ app.get('/', (req, res) => {
 
 app.post('/signin', (req, res) => {
 	if (req.body.email === db.users[0].email && req.body.pwd === db.users[0].pwd) {
-		res.json('gotcha, thanks!')
+		res.json(db.users[0]);
 	} else {
 		res.status(400).json('errorrrr login in!');
 	}
@@ -59,7 +59,6 @@ app.post('/register', (req, res) => {
 			id:'125',
 		 	name: name,
 		 	email: email,
-		 	pwd: pwd,
 		 	entries : 0,
 		 	joined : new Date()
 		})
