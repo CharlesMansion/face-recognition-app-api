@@ -19,28 +19,20 @@ const postgres = knex({
   }
 });
 
-postgres.select('*').from('users').then(data => {
-	console.log(data);
-});
-
 const app = express();
-
 
 app.use(bodyParser.json());
 app.use(cors());
 
 app.get('/', (req, res) => {
 	console.log("It's Working!")
-	res.json(postgres.users)
 })
 
 app.post('/signin', signIn.handleSignIn(postgres, bcrypt));
-
 app.post('/register', (req, res) => { register.handleRegister(req, res, postgres, bcrypt)});
-
 app.get('/profile/:id', (req, res) => { profile.handleProfile(req, res, postgres)});
-
 app.put('/image', (req, res) => { image.handleImage(req, res, postgres)});
+app.post('/imageurl', (req, res) => { image.handleAPICall(req, res)});
 
 
 

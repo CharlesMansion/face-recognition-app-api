@@ -1,11 +1,17 @@
 const handleSignIn = (postgres, bcrypt) => (req, res) => {
+	
+const {email, pwd } = req.body;
+	
+	if (!email || !pwd) {
+		return res.status(400).json('incorrect form submission');
+	}
 	postgres.select('email', 'hash').from('login')
-	.where('email', '=', req.body.email)
+	.where('email', '=', email)
 	.then(data => {
-		const isValid = bcrypt.compareSync(req.body.pwd, data[0].hash);
+		const isValid = bcrypt.compareSync(pwd, data[0].hash);
 		if (isValid) {
 			return postgres.select("*").from('users')
-			.where('email', '=', req.body.email)
+			.where('email', '=', email)
 			.then(user => {
 				res.json(user[0])
 			})
